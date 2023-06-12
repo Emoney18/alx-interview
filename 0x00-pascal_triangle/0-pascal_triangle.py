@@ -1,23 +1,36 @@
 #!/usr/bin/python3
-'''Module to return pascal triangle'''
+"""
+Pascal Triangle Model
+"""
+
+
+def CofBinom(n, k):
+    """
+    Binomial coefficient
+    C(line, i)   = line! / ( (line-i)! * i! )
+    line par line
+    """
+    res = 1
+    if (k > n - k):
+        k = n - k
+    for i in range(0, k):
+        res = res * (n - i)
+        res = res // (i + 1)
+
+    return res
 
 
 def pascal_triangle(n):
-    '''
-    Pascal's triangle
-    Args:
-      n (int): The number of rows of the triangle
-    Returns:
-      List of lists of integers representing the Pascal’s triangle
-    '''
-    lists = []
-    if n == 0:
-        return lists
+    """
+     returns a list of lists of integers
+     representing the Pascal triangle of n
+    """
+    triangle = []
+    if n <= 0:
+        return (triangle)
     for i in range(n):
-        lists.append([])
-        lists[i].append(1)
-        if (i > 0):
-            for j in range(1, i):
-                lists[i].append(lists[i - 1][j - 1] + lists[i - 1][j])
-            lists[i].append(1)
-    return lists
+        row = []
+        for j in range(i+1):
+            row.append(CofBinom(i, j))
+        triangle.append(row)
+    return triangle
